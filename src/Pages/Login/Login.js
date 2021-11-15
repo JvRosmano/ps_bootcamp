@@ -8,7 +8,7 @@ export default function Login() {
     <LoginWrapper>
       <FormWrapper>
         <Simg src={"/images/logo.png"} alt="logo" />
-        <Form initialValues={{ remember: true }}>
+        <Form initialValues={{ remember: true }} layout="vertical">
           <Form.Item
             label="Usuário"
             name="username"
@@ -37,7 +37,7 @@ export default function Login() {
             <Button size="large">Fazer Login</Button>
           </Form.Item>
           <Form.Item label="Não possui login?" name="link">
-            <Link to="cadastro">Ir para cadastro</Link>
+            <Link to="/cadastro">Ir para cadastro</Link>
           </Form.Item>
         </Form>
       </FormWrapper>
@@ -49,7 +49,7 @@ const LoginWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5vw;
+  padding: 3vw;
 `;
 
 const Simg = styled.img`
@@ -59,5 +59,5 @@ const Simg = styled.img`
 
 const FormWrapper = styled.div`
   border: 2px solid black;
-  padding: 2vw;
+  padding: 1vw;
 `;
