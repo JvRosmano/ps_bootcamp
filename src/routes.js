@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "antd/dist/antd.css";
 import Cadastro from "./Pages/Cadastro/Cadastro";
 import Login from "./Pages/Login/Login";
 
