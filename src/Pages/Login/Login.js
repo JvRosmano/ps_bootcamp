@@ -1,9 +1,37 @@
-import React from "react";
+import { React, useState } from "react";
 import styled from "styled-components";
-import { Input, Form, Button, Checkbox } from "antd";
-import { Link } from "react-router-dom";
+import { Input, Form, Button, Checkbox, message } from "antd";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
+  const [inputs, setInputs] = useState([]);
+  const navigate = useNavigate();
+  function handleChange(e) {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  }
+
+  function handleLogin() {
+    let users = localStorage.getItem("users");
+    users = JSON.parse(users);
+
+    users.forEach((user) => {
+      if (
+        user["user"] === inputs["username"] &&
+        user["password"] === inputs["password"]
+      ) {
+        navigate("/dashboard");
+        let loggedUsers = localStorage.getItem("loggedUsers");
+        if (loggedUsers) loggedUsers = JSON.parse(loggedUsers);
+        else loggedUsers = [];
+        loggedUsers.push(inputs);
+        localStorage.setItem("loggedUsers", JSON.stringify(loggedUsers));
+      }
+    });
+
+    if (!localStorage.getItem("loggedUsers")) {
+      message.error("Usuário ou senha incorretos, tente novamente.");
+    }
+  }
   return (
     <LoginWrapper>
       <FormWrapper>
@@ -16,14 +44,14 @@ export default function Login() {
               { required: true, message: "Preencha o seu nome de usuário!" },
             ]}
           >
-            <Input />
+            <Input name="username" onChange={handleChange} />
           </Form.Item>
           <Form.Item
             label="Password"
             name="password"
             rules={[{ required: true, message: "Preencha a sua senha!" }]}
           >
-            <Input.Password />
+            <Input.Password name="password" onChange={handleChange} />
           </Form.Item>
           <Form.Item
             name="remember"
@@ -34,7 +62,9 @@ export default function Login() {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button size="large">Fazer Login</Button>
+            <Button size="large" onClick={handleLogin}>
+              Fazer Login
+            </Button>
           </Form.Item>
           <Form.Item label="Não possui login?" name="link">
             <Link to="/cadastro">Ir para cadastro</Link>

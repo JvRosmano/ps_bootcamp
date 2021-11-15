@@ -2,9 +2,10 @@ import { React, useState } from "react";
 import styled from "styled-components";
 import { Input, Form, Button, message } from "antd";
 import { Link } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Cadastro() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState([]);
 
   function handleChange(e) {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -27,9 +28,15 @@ export default function Cadastro() {
       return message.error("As senhas digitadas estão diferentes.");
   }
   function handleSubmit() {
-    validate();
+    // validate();
+    user["id"] = uuidv4();
+    let users = localStorage.getItem("users");
+    if (users) {
+      users = JSON.parse(users);
+    } else users = [];
+    users.push(user);
+    localStorage.setItem("users", JSON.stringify(users));
   }
-  console.log(user);
   return (
     <CadastroWrapper>
       <FormWrapper>
