@@ -1,18 +1,22 @@
 import { React, useState } from "react";
 import styled from "styled-components";
 import { Input, Form, Button, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+const bcrypt = require("bcryptjs");
 
 export default function Cadastro() {
   const [user, setUser] = useState([]);
+  const navigate = useNavigate();
 
   function handleChange(e) {
     setUser({ ...user, [e.target.name]: e.target.value });
   }
   function validate() {
-    if (undefined === user["password"] || user["password"].length < 8)
-      return message.error("A senha precisa ter no mínimo 8 caracteres.");
+    if (undefined === user["password"] || user["password"].length < 8) {
+      message.error("A senha precisa ter no mínimo 8 caracteres.");
+      return false;
+    }
     let check = /\W|_/g;
     let check2 = /[a-z]/gi;
     let check3 = /[0-9]/g;
@@ -20,22 +24,36 @@ export default function Cadastro() {
       !check.test(user["password"]) ||
       !check2.test(user["password"]) ||
       !check3.test(user["password"])
-    )
-      return message.error(
-        "A senha precisa conter pelo menos um caracter especial, um digito e um caracter alfanúmerico"
-      );
-    if (user["password"] !== user["confirmpassword"])
-      return message.error("As senhas digitadas estão diferentes.");
+    ) {
+      message.error(`
+        A senha precisa conter pelo menos um caracter especial, um digito e um caracter alfanúmerico
+      `);
+      return false;
+    }
+    if (user["password"] !== user["confirmpassword"]) {
+      message.error("As senhas digitadas estão diferentes.");
+      return false;
+    }
+
+    message.success("Cadastro realizado com sucesso!");
+    return true;
   }
   function handleSubmit() {
-    // validate();
-    user["id"] = uuidv4();
-    let users = localStorage.getItem("users");
-    if (users) {
-      users = JSON.parse(users);
-    } else users = [];
-    users.push(user);
-    localStorage.setItem("users", JSON.stringify(users));
+    if (validate()) {
+      user["id"] = uuidv4();
+      user["password"] = bcrypt.hashSync(
+        user["password"],
+        bcrypt.genSaltSync()
+      );
+      delete user["confirmpassword"];
+      let users = localStorage.getItem("users");
+      if (users) {
+        users = JSON.parse(users);
+      } else users = [];
+      users.push(user);
+      localStorage.setItem("users", JSON.stringify(users));
+      navigate("/login");
+    }
   }
   return (
     <CadastroWrapper>
