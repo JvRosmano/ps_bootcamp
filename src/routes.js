@@ -9,35 +9,20 @@ export default function Rotas() {
   return (
     <Router>
       <Routes>
-        <Route
-          exact
-          path="/"
-          element={localStorage.getItem("loggedUser") ? <Leads /> : <Login />}
-        />
-        <Route
-          exact
-          path="/login"
-          element={localStorage.getItem("loggedUser") ? <Leads /> : <Login />}
-        />
-        <Route
-          exact
-          path="/cadastro"
-          element={
-            localStorage.getItem("loggedUser") ? <Leads /> : <Cadastro />
-          }
-        />
-        <Route
-          exact
-          path="/leads"
-          element={localStorage.getItem("loggedUser") ? <Leads /> : <Login />}
-        />
-        <Route
-          exact
-          path="/leads/cadastro"
-          element={
-            localStorage.getItem("loggedUser") ? <CadastroLeads /> : <Login />
-          }
-        />
+        {localStorage.getItem("loggedUser") ? (
+          <>
+            <Route path="/leads/cadastro" element={<CadastroLeads />} />
+            <Route path="/leads" element={<Leads />} />
+          </>
+        ) : (
+          <>
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/" element={<Login />} />
+            <Route exact path="/cadastro" element={<Cadastro />} />
+            <Route exact path="/leads" element={<Login />} />
+            <Route exact path="/leads/cadastro" element={<Login />} />
+          </>
+        )}
       </Routes>
     </Router>
   );
