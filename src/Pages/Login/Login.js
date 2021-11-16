@@ -17,7 +17,7 @@ export default function Login() {
 
     users?.forEach((user) => {
       if (
-        user["user"] === inputs["username"] &&
+        user["username"] === inputs["username"] &&
         bcrypt.compareSync(inputs["password"], user["password"])
       ) {
         inputs["password"] = user["password"];
