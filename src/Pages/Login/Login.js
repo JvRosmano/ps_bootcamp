@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 const bcrypt = require("bcryptjs");
 
 export default function Login() {
-  const [inputs, setInputs] = useState([]);
+  const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
   function handleChange(e) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -21,16 +21,14 @@ export default function Login() {
         bcrypt.compareSync(inputs["password"], user["password"])
       ) {
         inputs["password"] = user["password"];
-        let loggedUsers = localStorage.getItem("loggedUsers");
-        if (loggedUsers) loggedUsers = JSON.parse(loggedUsers);
-        else loggedUsers = [];
-        loggedUsers.push(inputs);
-        localStorage.setItem("loggedUsers", JSON.stringify(loggedUsers));
-        navigate("/dashboard");
+        let loggedUser = inputs;
+        localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
+        message.success("Seja bem vindo, " + loggedUser.username + "!");
+        navigate("/leads");
       }
     });
 
-    if (!localStorage.getItem("loggedUsers")) {
+    if (!localStorage.getItem("loggedUser")) {
       message.error("Usuário ou senha incorretos, tente novamente.");
     }
   }
