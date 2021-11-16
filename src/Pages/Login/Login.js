@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import styled from "styled-components";
 import { Input, Form, Button, Checkbox, message } from "antd";
 import { useNavigate, Link } from "react-router-dom";
+const bcrypt = require("bcryptjs");
 
 export default function Login() {
   const [inputs, setInputs] = useState([]);
@@ -14,17 +15,18 @@ export default function Login() {
     let users = localStorage.getItem("users");
     users = JSON.parse(users);
 
-    users.forEach((user) => {
+    users?.forEach((user) => {
       if (
-        user["user"] === inputs["username"] &&
-        user["password"] === inputs["password"]
+        user["username"] === inputs["username"] &&
+        bcrypt.compareSync(inputs["password"], user["password"])
       ) {
-        navigate("/dashboard");
+        inputs["password"] = user["password"];
         let loggedUsers = localStorage.getItem("loggedUsers");
         if (loggedUsers) loggedUsers = JSON.parse(loggedUsers);
         else loggedUsers = [];
         loggedUsers.push(inputs);
         localStorage.setItem("loggedUsers", JSON.stringify(loggedUsers));
+        navigate("/dashboard");
       }
     });
 

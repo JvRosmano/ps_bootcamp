@@ -8,7 +8,13 @@ export default function Rotas() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route
+          exact
+          path="/"
+          element={
+            localStorage.getItem("loggedUsers") ? <Dashboard /> : <Login />
+          }
+        />
         <Route
           exact
           path="/login"
@@ -23,7 +29,13 @@ export default function Rotas() {
             localStorage.getItem("loggedUsers") ? <Dashboard /> : <Cadastro />
           }
         />
-        <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route
+          exact
+          path="/dashboard"
+          element={
+            localStorage.getItem("loggedUsers") ? <Dashboard /> : <Login />
+          }
+        />
       </Routes>
     </Router>
   );
