@@ -9,14 +9,18 @@ export default function Column({ leads, title, id }) {
       <Title>{title}</Title>
       <Leads>
         <div>
-          <Droppable droppableId={id}>
+          <Droppable key={id} droppableId={id}>
             {(provided) => (
               <TaskWrapper ref={provided.innerRef} {...provided.droppableProps}>
                 {provided.placeholder}
                 {leads?.map((lead, index) => {
-                  if (title === lead.status)
+                  if (title === lead?.status)
                     return (
-                      <Task name={lead.name} id={lead.id} index={index}></Task>
+                      <Task
+                        name={lead?.name}
+                        id={lead?.id}
+                        index={index}
+                      ></Task>
                     );
                   else return null;
                 })}

@@ -1,19 +1,19 @@
 import { React, useState, useEffect } from "react";
 import { Header } from "../../Components/index";
+import { useNavigate } from "react-router";
 import { Form, Input, Button, Checkbox, Divider, message } from "antd";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 
 export default function CadastroLeads() {
+  const navigate = useNavigate();
   const options = ["RPA", "Produto Digital", "Analytics", "BPM"];
   const defaultOptions = [];
   const [lead, setLead] = useState([]);
   const [selected, setSelected] = useState(defaultOptions);
   const [checkAll, setCheckAll] = useState(false);
 
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
+  useEffect(() => {}, [selected]);
   function handleChange(e) {
     setLead({ ...lead, [e.target.name]: e.target.value });
   }
@@ -52,13 +52,8 @@ export default function CadastroLeads() {
       } else leads = [];
       leads.push(lead);
       localStorage.setItem("leads", JSON.stringify(leads));
+      navigate("/leads");
     }
-    // const phone1 = lead["phone"];
-    // const phone2 = lead["phone2"];
-    // const phones = [phone1, phone2];
-    // const newLead = { ...lead, phones };
-    // delete newLead.phone;
-    // delete newLead.phone2;
   }
   return (
     <>
@@ -116,6 +111,17 @@ export default function CadastroLeads() {
                 Salvar
               </SButton>
             </Form.Item>
+            <Form.Item>
+              <h4>Não sabe o que está fazendo aqui?</h4>
+              <SButton
+                danger
+                onClick={() => {
+                  navigate("/leads");
+                }}
+              >
+                Ir para Paínel de Leads
+              </SButton>
+            </Form.Item>
           </Form>
         </RightWrapper>
       </ColumnsWrapper>
@@ -140,6 +146,7 @@ const LeftWrapper = styled.div`
 const RightWrapper = styled.div`
   width: 35vw;
   padding-right: 5vw;
+  align-items: center;
 `;
 
 const SButton = styled(Button)`

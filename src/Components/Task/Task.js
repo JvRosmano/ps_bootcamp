@@ -29,5 +29,5 @@ const TaskWrapper = styled.div`
   padding: 8px;
   margin-bottom: 8px;
   text-align: center;
-  background-color: ${(props) => (props.isDragging ? "lightgreen" : "white")};
+  background-color: ${(props) => (props.isDragging ? "lightblue" : "white")};
 `;
