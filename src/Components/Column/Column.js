@@ -8,27 +8,23 @@ export default function Column({ leads, title, id }) {
     <ColumnWrapper>
       <Title>{title}</Title>
       <Leads>
-        <Droppable droppableId={id}>
-          {(provided) => (
-            <div>
-              {leads.map((lead, index) => {
-                if (title === lead.status)
-                  return (
-                    <Task
-                      innerRef={provided.innerRef}
-                      {...provided.droppableProps}
-                      name={lead.name}
-                      id={lead.id}
-                      index={index}
-                    >
-                      {provided.placeholder}
-                    </Task>
-                  );
-                else return null;
-              })}
-            </div>
-          )}
-        </Droppable>
+        <div>
+          <Droppable droppableId={id}>
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {leads.map((lead, index) => {
+                  if (title === lead.status)
+                    return (
+                      <Task name={lead.name} id={lead.id} index={index}>
+                        {provided.placeholder}
+                      </Task>
+                    );
+                  else return null;
+                })}
+              </div>
+            )}
+          </Droppable>
+        </div>
       </Leads>
     </ColumnWrapper>
   );

@@ -8,9 +8,9 @@ export default function Leads() {
   const navigate = useNavigate();
   const [leads, setLeads] = useState([]);
   const columns = [
-    { id: 1, title: "Cliente em Potencial" },
-    { id: 2, title: "Dados Confirmados" },
-    { id: 3, title: "Reunião Agendada" },
+    { id: "1", title: "Cliente em Potencial" },
+    { id: "2", title: "Dados Confirmados" },
+    { id: "3", title: "Reunião Agendada" },
   ];
   useEffect(() => {
     let data = localStorage.getItem("leads");
