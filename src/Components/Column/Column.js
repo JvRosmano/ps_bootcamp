@@ -12,12 +12,11 @@ export default function Column({ leads, title, id }) {
           <Droppable droppableId={id}>
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
-                {leads.map((lead, index) => {
+                {provided.placeholder}
+                {leads?.map((lead, index) => {
                   if (title === lead.status)
                     return (
-                      <Task name={lead.name} id={lead.id} index={index}>
-                        {provided.placeholder}
-                      </Task>
+                      <Task name={lead.name} id={lead.id} index={index}></Task>
                     );
                   else return null;
                 })}
@@ -29,11 +28,6 @@ export default function Column({ leads, title, id }) {
     </ColumnWrapper>
   );
 }
-
-// {leads.map((lead) => {
-//   if (title === lead.status) return <Task name={lead.name} />;
-//   else return null;
-// });}
 
 const ColumnWrapper = styled.div`
   margin: 8px;

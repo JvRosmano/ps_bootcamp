@@ -5,7 +5,7 @@ import { Draggable } from "react-beautiful-dnd";
 export default function Task({ name, id, index }) {
   return (
     <div>
-      <Draggable draggableId={id} index={index}>
+      <Draggable key={id} draggableId={id} index={index}>
         {(providedDraggable) => {
           return (
             <TaskWrapper
