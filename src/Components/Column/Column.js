@@ -11,7 +11,7 @@ export default function Column({ leads, title, id }) {
         <div>
           <Droppable droppableId={id}>
             {(provided) => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
+              <TaskWrapper ref={provided.innerRef} {...provided.droppableProps}>
                 {provided.placeholder}
                 {leads?.map((lead, index) => {
                   if (title === lead.status)
@@ -20,7 +20,7 @@ export default function Column({ leads, title, id }) {
                     );
                   else return null;
                 })}
-              </div>
+              </TaskWrapper>
             )}
           </Droppable>
         </div>
@@ -44,3 +44,5 @@ const Title = styled.h1`
 const Leads = styled.div`
   padding: 8px;
 `;
+
+const TaskWrapper = styled.div``;

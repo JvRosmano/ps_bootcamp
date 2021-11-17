@@ -6,12 +6,13 @@ export default function Task({ name, id, index }) {
   return (
     <div>
       <Draggable key={id} draggableId={id} index={index}>
-        {(providedDraggable) => {
+        {(providedDraggable, snapshot) => {
           return (
             <TaskWrapper
               {...providedDraggable.draggableProps}
               {...providedDraggable.dragHandleProps}
               ref={providedDraggable.innerRef}
+              isDragging={snapshot.isDragging}
             >
               <h3>{name}</h3>
             </TaskWrapper>
@@ -28,5 +29,5 @@ const TaskWrapper = styled.div`
   padding: 8px;
   margin-bottom: 8px;
   text-align: center;
-  background-color: white;
+  background-color: ${(props) => (props.isDragging ? "lightgreen" : "white")};
 `;

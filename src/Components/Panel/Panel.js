@@ -19,11 +19,17 @@ export default function Panel({ leads, columns }) {
       destination.index === source.index
     )
       return;
-
-    const leads = Array.from(updateLeads);
-    const [reorderLeads] = leads.splice(result.source.index, 1);
-    leads.splice(result.destination.index, 0, reorderLeads);
-    setUpdateLeads(leads);
+    if (source.droppableId === destination.droppableId) {
+      const leads = Array.from(updateLeads);
+      const [reorderLeads] = leads.splice(result.source.index, 1);
+      leads.splice(result.destination.index, 0, reorderLeads);
+      setUpdateLeads(leads);
+    } else if (source.droppableId === "1" && destination.droppableId === "2") {
+      const leads = Array.from(updateLeads);
+      const [firstChange] = leads.splice(result.source.index, 1);
+      firstChange.status = "Dados Confirmados";
+      leads.splice(result.destination.index, 0, firstChange);
+    }
   }
 
   return (
