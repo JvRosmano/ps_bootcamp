@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Header } from "../../Components/index";
 import { Form, Input, Button, Checkbox, Divider, message } from "antd";
 import styled from "styled-components";
@@ -11,6 +11,9 @@ export default function CadastroLeads() {
   const [selected, setSelected] = useState(defaultOptions);
   const [checkAll, setCheckAll] = useState(false);
 
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
   function handleChange(e) {
     setLead({ ...lead, [e.target.name]: e.target.value });
   }
@@ -19,12 +22,12 @@ export default function CadastroLeads() {
     setSelected(selecteds);
     setCheckAll(selecteds.length === options.length);
     setLead({ ...lead, oportunities: selecteds });
-    console.log(selecteds);
   }
 
   function handleCheckAll(e) {
     setSelected(e.target.checked ? options : []);
     setCheckAll(e.target.checked);
+    setLead({ ...lead, oportunities: e.target.checked ? options : [] });
   }
 
   function validate() {
@@ -43,7 +46,6 @@ export default function CadastroLeads() {
     if (validate()) {
       lead["id"] = uuidv4();
       lead["status"] = "Cliente em Potencial";
-      console.log("leadsss", lead);
       let leads = localStorage.getItem("leads");
       if (leads) {
         leads = JSON.parse(leads);
@@ -58,8 +60,6 @@ export default function CadastroLeads() {
     // delete newLead.phone;
     // delete newLead.phone2;
   }
-
-  console.log("leads", lead);
   return (
     <>
       <Header Page="Cadastro de Leads" />
@@ -112,11 +112,9 @@ export default function CadastroLeads() {
               />
             </Form.Item>
             <Form.Item>
-              {/* <ButtonWrapper> */}
               <SButton type="primary" onClick={handleSubmit}>
                 Salvar
               </SButton>
-              {/* </ButtonWrapper> */}
             </Form.Item>
           </Form>
         </RightWrapper>

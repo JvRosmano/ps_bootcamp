@@ -11,6 +11,9 @@ export default function Rotas() {
       <Routes>
         {localStorage.getItem("loggedUser") ? (
           <>
+            <Route path="/login" element={<Leads />} />
+            <Route exact path="/" element={<Leads />} />
+            <Route exact path="/cadastro" element={<Leads />} />
             <Route path="/leads/cadastro" element={<CadastroLeads />} />
             <Route path="/leads" element={<Leads />} />
           </>

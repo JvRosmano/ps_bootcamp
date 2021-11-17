@@ -1,14 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router";
 import styled from "styled-components";
 import { Button } from "antd";
 
 export default function Header({ Page }) {
-  const navigate = useNavigate();
-
   function handleClick() {
     localStorage.removeItem("loggedUser");
-    navigate("/login");
+    window.location.href = "/login";
   }
   return (
     <HeaderWrapper>
