@@ -12,7 +12,6 @@ export default function Column({ leads, title, id }) {
           <Droppable key={id} droppableId={id}>
             {(provided) => (
               <TaskWrapper ref={provided.innerRef} {...provided.droppableProps}>
-                {provided.placeholder}
                 {leads?.map((lead, index) => {
                   if (title === lead?.status)
                     return (
@@ -24,6 +23,7 @@ export default function Column({ leads, title, id }) {
                     );
                   else return null;
                 })}
+                {provided.placeholder}
               </TaskWrapper>
             )}
           </Droppable>
