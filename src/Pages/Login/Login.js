@@ -1,12 +1,11 @@
 import { React, useState } from "react";
 import styled from "styled-components";
 import { Input, Form, Button, Checkbox, message } from "antd";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 const bcrypt = require("bcryptjs");
 
 export default function Login() {
   const [inputs, setInputs] = useState({});
-  const navigate = useNavigate();
   function handleChange(e) {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   }
@@ -24,7 +23,7 @@ export default function Login() {
         let loggedUser = inputs;
         localStorage.setItem("loggedUser", JSON.stringify(loggedUser));
         message.success("Seja bem vindo, " + loggedUser.username + "!");
-        navigate("/leads");
+        window.location.href = "/leads";
       }
     });
 

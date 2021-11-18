@@ -32,7 +32,6 @@ export default function Cadastro() {
         return false;
       }
     }
-    console.log("aoba");
 
     if (undefined === newUser["password"] || newUser["password"].length < 8) {
       message.error("A senha precisa ter no mínimo 8 caracteres.");
