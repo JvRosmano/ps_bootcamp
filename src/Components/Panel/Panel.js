@@ -43,8 +43,7 @@ export default function Panel({ leads, columns }) {
       destination.index === source.index
     )
       return;
-    console.log(result);
-    console.log(source.droppableId === "1" && destination.droppableId === "2");
+
     if (source.droppableId === "1" && destination.droppableId === "1") {
       const srcI = result.source.index;
       const desI = result.destination.index;
