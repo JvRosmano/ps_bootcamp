@@ -43,6 +43,8 @@ export default function Panel({ leads, columns }) {
       destination.index === source.index
     )
       return;
+    console.log(result);
+    console.log(source.droppableId === "1" && destination.droppableId === "2");
     if (source.droppableId === "1" && destination.droppableId === "1") {
       const srcI = result.source.index;
       const desI = result.destination.index;
@@ -54,6 +56,7 @@ export default function Panel({ leads, columns }) {
       lead2.splice(desI, 0, lead1.splice(srcI, 1)[0]);
       handleLead2(lead2);
       saveChanges();
+      window.location.href = "/leads";
     } else if (source.droppableId === "2" && destination.droppableId === "2") {
       const srcI = result.source.index;
       const desI = result.destination.index;
@@ -65,6 +68,7 @@ export default function Panel({ leads, columns }) {
       lead3.splice(desI, 0, lead2.splice(srcI, 1)[0]);
       handleLead3(lead3);
       saveChanges();
+      window.location.href = "/leads";
     } else return;
   }
   function saveChanges() {

@@ -49,4 +49,6 @@ const Leads = styled.div`
   padding: 8px;
 `;
 
-const TaskWrapper = styled.div``;
+const TaskWrapper = styled.div`
+  min-height: 500;
+`;

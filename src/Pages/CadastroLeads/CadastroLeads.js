@@ -52,6 +52,7 @@ export default function CadastroLeads() {
       } else leads = [];
       leads.push(lead);
       localStorage.setItem("leads", JSON.stringify(leads));
+      message.success("Lead criado com sucesso!");
       navigate("/leads");
     }
   }
@@ -112,14 +113,14 @@ export default function CadastroLeads() {
               </SButton>
             </Form.Item>
             <Form.Item>
-              <h4>Não sabe o que está fazendo aqui?</h4>
+              <h3>Deseja ver os leads cadastrados?</h3>
               <SButton
                 danger
                 onClick={() => {
                   navigate("/leads");
                 }}
               >
-                Ir para Paínel de Leads
+                Paínel de Leads
               </SButton>
             </Form.Item>
           </Form>
